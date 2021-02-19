@@ -2,15 +2,14 @@ package CommonFunctions;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,6 +17,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -220,4 +220,30 @@ Assert.assertEquals(testdata, actdata);
 Reporter.log(testdata+"      "+actdata,true);
 	
 }
+//method for drop down
+public static void dropDownAction(WebDriver driver, String locatorType, String locatorValue, String testdata) throws Exception
+{
+	if(locatorType.equalsIgnoreCase("xpath"))
+	{
+		int value = Integer.parseInt(testdata);
+		WebElement element = driver.findElement(By.xpath(locatorValue));
+		Select select = new Select(element);
+		select.selectByIndex(value);
+		
+	}
+	if(locatorType.equalsIgnoreCase("id"))
+	{
+		int value = Integer.parseInt(testdata);
+		WebElement element = driver.findElement(By.xpath(locatorValue));
+		Select select = new Select(element);
+		select.selectByIndex(value);
+		
+	}
+}
+//method for calender handling(select date from calender)
+public static void datePicker(WebDriver driver, String locatorValue, String date)
+{
+	((JavascriptExecutor)driver).executeScript("document.getElementById('"+locatorValue+"').value='"+date+"'");
+}
+
 }
